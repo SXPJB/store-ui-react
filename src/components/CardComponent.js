@@ -1,50 +1,98 @@
-export default function CardComponent(props) {
-    return (
-        <div className="card">
-            <div className="card">
-                <div className="card-header">
-                    <h1>{props.data.title}</h1>
-                </div>
-                <div className="card-body">
-                    <img
-                        src={props.data.image1}
-                        className="responsiveIMG"
-                        alt={props.data.title}
-                    />
-                    <div className='py-3'>
-                        <p>{props.data.description}</p>
-                        <div className="container">
-                            <div className="row">
-                                <div className="col">
-                                    <p>
-                                        Existencia: {props.data.inventary}
-                                    </p>
-                                </div>
-                                <div className="col">
-                                    <p className="text-end">
-                                        Precio: ${new Intl.NumberFormat().format(props.data.price)}
-                                    </p>
-                                </div>
-                            </div>
+import React from "react";
+import {Utils} from "../res/Utils";
+import {withRouter} from "react-router-dom";
+import {addCard, initialOrder} from "../services/ShoppongService";
 
+class CardComponent extends React.Component{
+
+    constructor(props) {
+        super(props);
+        this.state={
+            idProduct:this.props.data.id,
+            idOrder:0,
+            amount:1
+        }
+    }
+
+    handleChange = e => {
+        this.setState(
+            {
+                [e.target.name]: e.target.value
+            }
+        );
+    }
+
+    handleSubmit = async e => {
+        e.preventDefault()
+        if(!Utils.getUser()){
+            this.props.history.push('/login')
+        }else{
+            if(!Utils.getOrder()){
+                await initialOrder()
+            }
+            if(Utils.getOrder().state!=='C'){
+                await initialOrder()
+            }
+            await addCard(this.state)
+        }
+    }
+
+    render() {
+        return (
+            <div className="card">
+                <div className="card">
+                    <div className="card-header">
+                        <h1>{this.props.data.title}</h1>
+                    </div>
+                    <div className="card-body">
+                        <img
+                            src={this.props.data.image1}
+                            className="responsiveIMG"
+                            alt={this.props.data.title}
+                        />
+                        <div className='py-3'>
+                            <p>{this.props.data.description}</p>
+                            <div className="container">
+                                <div className="row">
+                                    <div className="col">
+                                        <p>
+                                            Existencia: {this.props.data.inventary}
+                                        </p>
+                                    </div>
+                                    <div className="col">
+                                        <p className="text-end">
+                                            Precio: ${new Intl.NumberFormat().format(this.props.data.price)}
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="card-footer text-end">
-                    <button className="btn btn-success" onClick={()=>addCard(props.data.id)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             className="bi bi-bag-plus-fill" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                  d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"/>
-                        </svg>{" "}
-                        Agregar al carrito
-                    </button>
+                    <div className="card-footer">
+                        <form className='row g-3 align-items-center'>
+                            <div className="col-auto">
+                                <label>Cantidad:</label>
+                            </div>
+                            <div className="col-4">
+                                <input type="number"
+                                       min="1"
+                                       value={this.state.amount}
+                                       onChange={this.handleChange}
+                                       max={this.props.data.inventary}
+                                       className="form-control"
+                                       name='amount'/>
+                            </div>
+                            <div className="col-auto">
+                                <button type="submit"
+                                        onClick={this.handleSubmit}
+                                        className="btn btn-outline-success">Agregar al carrito</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
-
-function addCard(id){
-    console.log(id)
-}
+export default withRouter(CardComponent)

@@ -1,16 +1,32 @@
 import {Utils} from "../res/Utils";
+import {Client} from "../res/Client";
+import {Urls} from "../res/Urls";
 
-export const login = (email,password) => {
-    let user = data.filter(d => d.email===email&&d.password===password)
-    if(user.length===0) {
+export const login = async (user) => {
+    const usertemp = await Client.POST({
+        url:Urls.apiUserControl.login,
+        data:user,
+        muted:true
+    })
+    if(usertemp==null){
         Utils.swalError("Datos incorrectos")
         return
     }
-    user[0].isActive=true
-    sessionStorage.setItem("user",JSON.stringify(user[0]))
+    usertemp.isActive=true
+    if(user.remember){
+        localStorage.setItem("user",JSON.stringify(usertemp))
+    }else{
+        sessionStorage.setItem("user",JSON.stringify(usertemp))
+    }
 }
 
-const data = [
+export const register = userInfo =>{
+    data.push(userInfo)
+    Utils.swalSuccess("Gracias por confiar en nostros")
+    return userInfo;
+}
+
+let data = [
     {
         id:1,
         email: "admin@admin.com",

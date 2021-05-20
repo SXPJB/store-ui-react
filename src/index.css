@@ -1,8 +1,35 @@
 .responsiveIMG {
   width: 100%;
-  height: auto;
+  height: 50%;
 }
 .btn-block{
   width: 100%;
   height: auto;
+}
+.btn-block-md{
+  width: 80%;
+  height: auto;
+}
+.btn-block-sm{
+  width: 50%;
+  height: auto;
+}
+.img-pequeña{
+  width: 50px; height: auto;
+}
+
+.img-mediana{
+  width: 250px; height: auto;
+}
+.img-grande{
+  width: 65%;
+  height: auto;
+}
+.bg-login{
+  background-image: url("./res/img/logo.jpg");
+  background-position: center center;
+  webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }

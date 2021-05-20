@@ -1,68 +1,103 @@
-import {useState} from "react";
-import {Redirect} from "react-router-dom";
+import React from "react";
+import {Link, Redirect} from "react-router-dom";
 import {login} from "../services/LoginService";
 import {Utils} from "../res/Utils";
-import { withRouter } from "react-router-dom";
+import {withRouter} from "react-router-dom";
+import Logo from '../logo.svg'
 
-function Login(props) {
-    const [username, setUserName] = useState("");
-    const [password, setPassword] = useState("");
-
-    const validateFrom = (username, password) => {
-        console.log(username, password)
-        if (username === "" && password === "") {
-            Utils.swalError("El usuario y contrseñase son requeridos")
-            return false
+class Login extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state={
+            email:'',
+            password:'',
+            remember:false
         }
-        if (username === "") {
-            Utils.swalError("El usuario es requeridos")
-            return false
-        }
-        if (password === "") {
-            Utils.swalError("La contraseña es requeridos")
-            return false
-        }
-        return true
     }
 
-    const redirectToHome = () => {
-       props.history.push('/');
-       window.location.reload(false);
+    componentDidMount() {
+        if(this.props.location && this.props.location.state){
+            this.setState(this.props.location.state)
+        }
     }
 
-    const handleSubmit = e => {
+    redirectToHome = () => {
+        this.props.history.push('/');
+        window.location.reload(false);
+    }
+
+    handleChange = e => {
+        const target = e.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+        this.setState({
+            [name]: value
+        });
+    }
+
+    handleSubmit = async e => {
         e.preventDefault()
-        if (validateFrom(username, password)) {
-            login(username, password)
-            if(Utils.getActive()){
-                redirectToHome()
-            }
+        await login(this.state)
+        if (Utils.getActive()) {
+            this.redirectToHome()
         }
     }
 
-    if (sessionStorage.getItem("user")) {
-        return <Redirect to={"/"}/>
-    }
-    return (
-        <div className="container h-100">
-            <div className="row justify-content-center h-100">
-                <div className="col-sm-12 align-self-center">
-                    <form onSubmit={handleSubmit}>
-                        <label className="form-label">Usuario</label>
-                        <input className="form-control"
-                               onChange={e => setUserName(e.target.value)}
-                               type="text"/>
-                        <label className="form-label">Contraseña</label>
-                        <input className="form-control"
-                               onChange={e => setPassword(e.target.value)}
-                               type="password"/>
-                        <div>
-                            <button className="btn btn-primary mt-3">Submit</button>
+    render() {
+        if (sessionStorage.getItem("user")) {
+            return <Redirect to={"/"}/>
+        }
+        return (
+            <div className="container w-75 mt-5 rounded shadow">
+                <div className="row align-items-stretch">
+                    <div className="col bg-login d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded">
+                    </div>
+                    <div className="col p-5 rounded-end">
+                        <div className="text-center">
+                            <img src={Logo} alt="React"/>
                         </div>
-                    </form>
+                        <h2 className="fw-bold text-center py-5">Bienvenido</h2>
+                        <form onSubmit={this.handleSubmit}>
+                            <div className="mb-4">
+                                <label className="form-label">Correo electronico</label>
+                                <input className="form-control"
+                                       name="email"
+                                       value={this.state.email}
+                                       required={true}
+                                       onChange={this.handleChange}
+                                       type="email"/>
+                            </div>
+                            <div className="mb-4">
+                                <label className="form-label">Contraseña</label>
+                                <input className="form-control"
+                                       name="password"
+                                       value={this.state.password}
+                                       onChange={this.handleChange}
+                                       required={true}
+                                       type="password"/>
+                            </div>
+                            <div className="mb-4 form-check">
+                                <input type="checkbox"
+                                       name="remember"
+                                       value={this.state.remember}
+                                       onChange={this.handleChange}
+                                       className="form-check-input"/>
+                                <label className="form-label">Recordarme</label>
+                            </div>
+                            <div className="d-grid">
+                                <button className="btn btn-outline-success">Iniciar Sesión</button>
+                            </div>
+                            <div className="my-3">
+                                <span>No tienes cuenta? <Link to="/register" className="link-info">Registrate</Link></span>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
+
+
 }
+
 export default withRouter(Login);

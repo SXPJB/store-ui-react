@@ -1,5 +1,5 @@
 import React from "react";
-import {getAllProducts} from "../services/GridService";
+import {deleteProduct, getAllProducts} from "../services/GridService";
 import {withRouter} from "react-router-dom";
 
 class AdminPanelComponent extends React.Component{
@@ -21,15 +21,20 @@ class AdminPanelComponent extends React.Component{
     }
 
     editRegister (state){
-        this.props.history.push({pathname:'/productPanel/insert',state})
+        state.edit=true
+        this.props.history.push({pathname:'/productPanel/from',state})
     }
-
+    async deleteProduct(id){
+        console.log(id)
+        await deleteProduct(id)
+        window.location.reload(false)
+    }
     render() {
         return (
             <div className="container text-center">
-                <table className="table table-bordered">
+                <table className="table table table-stripe">
                     <thead>
-                    <tr>
+                    <tr className="table-dark">
                         <th>No.</th>
                         <th>Titulo del producto</th>
                         <th>Descipción</th>
@@ -40,9 +45,9 @@ class AdminPanelComponent extends React.Component{
                     </thead>
                     <tbody>
                         {
-                            this.state.data.map(d=>
-                                <tr key={d.id}>
-                                    <th>{d.id}</th>
+                            this.state.data.map((d,i)=>
+                                <tr key={i}>
+                                    <th>{i+1}</th>
                                     <th>{d.title}</th>
                                     <th>{d.description.slice(0,20)}...</th>
                                     <th>{d.price}</th>
@@ -55,12 +60,12 @@ class AdminPanelComponent extends React.Component{
                                                     d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                                             </svg>
                                         </button>
-                                        <button className="btn btn-danger m-1">
+                                        <button className="btn btn-danger m-1" onClick={()=>this.deleteProduct(d.id)}>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                  fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
                                                 <path
                                                     d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                                <path fill-rule="evenodd"
+                                                <path fillRule="evenodd"
                                                       d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
                                             </svg>
                                         </button>
@@ -70,8 +75,9 @@ class AdminPanelComponent extends React.Component{
                         }
                     </tbody>
                 </table>
+
                 <div className="text-end">
-                   <button className="btn btn-primary" onClick={()=>this.props.history.push('/productPanel/insert')}>
+                   <button className="btn btn-primary" onClick={()=>this.props.history.push('/productPanel/from')}>
                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             className="bi bi-plus-square" viewBox="0 0 16 16">
                            <path

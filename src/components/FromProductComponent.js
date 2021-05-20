@@ -1,6 +1,7 @@
 import React from "react";
 import {withRouter} from "react-router-dom";
-import {insertProduct} from "../services/FormProductService";
+import {insertProduct, updateProduct} from "../services/FormProductService";
+import {Utils} from "../res/Utils";
 
 class FromProductComponent extends React.Component {
 
@@ -12,7 +13,9 @@ class FromProductComponent extends React.Component {
             description: "",
             price: 0.0,
             inventary: 0,
-            image1: ""
+            image1: "",
+            edit:false,
+            createdBy:Utils.getUser().id
         }
     }
 
@@ -28,7 +31,8 @@ class FromProductComponent extends React.Component {
             description: "",
             price: 0.0,
             inventary: 0,
-            image1: ""
+            image1: "",
+            edit:false
         })
     }
 
@@ -42,9 +46,17 @@ class FromProductComponent extends React.Component {
 
     handleSubmit = async e => {
         e.preventDefault()
-        const res = await insertProduct(this.state)
-        console.log("result",res)
-        this.props.history.push('/productPanel')
+       try {
+           if(this.state.edit){
+               await updateProduct(this.state)
+           }else{
+               await insertProduct(this.state)
+           }
+           this.resetState()
+           this.props.history.push('/productPanel')
+       }catch (e){
+            Utils.raise(e)
+       }
     }
 
     cancelBtn=e=>{
@@ -113,7 +125,7 @@ class FromProductComponent extends React.Component {
                         <button className="btn btn-danger m-1"
                                 onClick={this.cancelBtn}>Cancelar
                         </button>
-                        <button className="btn btn-primary m-1">Agregar</button>
+                        <button className="btn btn-primary m-1">Guardar</button>
                     </div>
                 </form>
             </div>

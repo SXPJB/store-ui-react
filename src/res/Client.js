@@ -113,9 +113,7 @@ export class Client {
                 url: params.url,
                 headers: params.headers,
                 params: params.params,
-                data:Object.assign(params.data,{
-                    createdBy:Utils.getUser().id
-                }),
+                data:params.data,
                 timeout: params.timeout,
                 auth: params.auth,
                 catch: function (e) {
@@ -180,7 +178,7 @@ export class Client {
 
             let res = await axios(requestParamas).catch(requestParamas.catch)
             if (res === undefined) {
-                response=[]
+                response = null
             }else{
                 if(res.data.success){
                     response = res.data.data;
@@ -188,6 +186,8 @@ export class Client {
                         icon: 'success',
                         text: res.data.message
                     })
+                }else{
+                    response = res.data.data;
                 }
             }
         } catch (e) {

@@ -74,7 +74,11 @@ export class Utils {
     static getUser(){
         let user = null
         try {
-            user = JSON.parse(sessionStorage.getItem("user"))
+            if(JSON.parse(sessionStorage.getItem("user"))){
+                user = JSON.parse(sessionStorage.getItem("user"))
+            }else{
+                user = JSON.parse(localStorage.getItem("user"))
+            }
         }catch (e) {
             Utils.raise(e,"Error no se a logeado")
         }
@@ -84,14 +88,33 @@ export class Utils {
     static getActive(){
         let {isActive} =false
        try {
-            isActive=JSON.parse(sessionStorage.getItem('user'))
+            if(sessionStorage.getItem('user')){
+                isActive=JSON.parse(sessionStorage.getItem('user'))
+            }else{
+                isActive=JSON.parse(localStorage.getItem('user'))
+            }
        }catch (e){
             Utils.raise(e,"Error no se a logeado")
        }
         return isActive
     }
     static logout(){
+        if(JSON.parse(sessionStorage.getItem("user"))){
+            sessionStorage.removeItem("user")
+        }else{
+            localStorage.removeItem("user")
+        }
+        window.location.reload(false);
+    }
+    static goHome(props){
         sessionStorage.removeItem("user")
-        window.location.reload(false)
+        props.history.push('/');
+        window.location.reload(false);
+    }
+    static setOrder(order){
+        localStorage.setItem("order",JSON.stringify(order))
+    }
+    static getOrder(){
+        return JSON.parse(localStorage.getItem("order"))
     }
 }
