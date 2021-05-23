@@ -16,6 +16,9 @@ export class Utils {
         })
         Toast.fire(props)
     }
+    static swal(){
+        return Swal
+    }
     static swl(props){
         return Swal.fire(props)
     }

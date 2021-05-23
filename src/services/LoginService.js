@@ -20,29 +20,29 @@ export const login = async (user) => {
     }
 }
 
-export const register = userInfo =>{
-    data.push(userInfo)
-    Utils.swalSuccess("Gracias por confiar en nostros")
-    return userInfo;
-}
-
-let data = [
-    {
-        id:1,
-        email: "admin@admin.com",
-        password: "123456",
-        rol:1
-    },
-    {
-        id:2,
-        email: "cliente@cliente.com",
-        password: "123456",
-        rol: 2
-    },
-    {
-        id:3,
-        email: "paqueteria@paqueteria.com",
-        password: "123456",
-        rol: 3
+export const register = async userInfo =>{
+    let user = userInfo;
+    try {
+        await Client.POST({
+            url:Urls.apiUserControl.register,
+            data:{
+                email: user.email,
+                idPerson: {
+                    maternalSurname: user.maternalSurname,
+                    name: user.name,
+                    paternalSurname: user.paternalSurname,
+                    rfc: user.rfc,
+                },
+                idRol: {
+                    id: user.idRol,
+                },
+                password: user.password
+            }
+        })
+        Utils.swalSuccess("Gracias por confiar en nostros")
+    }catch (e){
+        user = null
+        Utils.raise(e,"Error al regitrar el usuario")
     }
-]
+    return user;
+}

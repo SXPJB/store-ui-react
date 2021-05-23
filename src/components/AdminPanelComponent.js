@@ -32,7 +32,7 @@ class AdminPanelComponent extends React.Component{
     render() {
         return (
             <div className="container text-center">
-                <table className="table table table-stripe">
+                <table className="table table-stripe">
                     <thead>
                     <tr className="table-dark">
                         <th>No.</th>
@@ -47,12 +47,12 @@ class AdminPanelComponent extends React.Component{
                         {
                             this.state.data.map((d,i)=>
                                 <tr key={i}>
-                                    <th>{i+1}</th>
-                                    <th>{d.title}</th>
-                                    <th>{d.description.slice(0,20)}...</th>
-                                    <th>{d.price}</th>
-                                    <th>{d.inventary}</th>
-                                    <th>
+                                    <td>{i+1}</td>
+                                    <td>{d.title}</td>
+                                    <td>{d.description.slice(0,20)}...</td>
+                                    <td>{d.price}</td>
+                                    <td>{d.inventary}</td>
+                                    <td>
                                         <button className="btn btn-secondary m-1" onClick={()=>this.editRegister(d)}>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                  fill="currentColor" className="bi bi-pencil" viewBox="0 0 16 16">
@@ -69,7 +69,7 @@ class AdminPanelComponent extends React.Component{
                                                       d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
                                             </svg>
                                         </button>
-                                    </th>
+                                    </td>
                                 </tr>
                             )
                         }

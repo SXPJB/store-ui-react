@@ -4,7 +4,8 @@ const baseApi = {
     product: baseURl + "tproducts/",
     order: baseURl + "torders/",
     shoppingCart: baseURl + "tshopoingcart/",
-    userControl: baseURl + "tusers/"
+    userControl: baseURl + "tusers/",
+    tracking: baseURl + 'ttraking/'
 }
 //this is a exmple data for enpoint api
 export const Urls = {
@@ -17,13 +18,20 @@ export const Urls = {
     apiOrder: {
         insert: baseApi.order + "insert",
         update: baseApi.order + "update",
-        findOrderByUserPage:baseApi.order + "findOrderByUserPage"
+        findAll: baseApi.order + "findAll",
+        findOrderByUserPage: baseApi.order + "findOrderByUserPage"
     },
     apiShoppingCart: {
         insert: baseApi.shoppingCart + "insert",
-        findShoppingCartByUserSateC:baseApi.shoppingCart +"findShoppingCartByUserSateC"
+        findShoppingCartByUserSateC: baseApi.shoppingCart + "findShoppingCartByUserSateC"
     },
-    apiUserControl:{
-        login:baseApi.userControl+ "login"
+    apiUserControl: {
+        login: baseApi.userControl + "login",
+        register: baseApi.userControl + "insert"
+    },
+    apiTracking: {
+        findByOrder: baseApi.tracking + 'findByOrder',
+        insert: baseApi.tracking + "insert",
+        delete: baseApi.tracking + "delete"
     }
 }

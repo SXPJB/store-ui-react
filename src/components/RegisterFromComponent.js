@@ -2,6 +2,7 @@ import React from "react";
 import {Link, withRouter} from "react-router-dom";
 import Logo from '../logo.svg'
 import {register} from "../services/LoginService";
+import {Utils} from "../res/Utils";
 
 class RegisterFromComponent extends React.Component{
 
@@ -27,11 +28,17 @@ class RegisterFromComponent extends React.Component{
         );
     }
 
-    handleSubmit = e => {
+    handleSubmit = async e => {
         e.preventDefault()
-        console.log("data: ",this.state)
-        const state = register(this.state)
-        this.props.history.push({pathname:'/login',state})
+        if(this.state.password!==this.state.confirmPassword){
+            Utils.swalError("Las contresañas no coninciden")
+            this.setState({...this.state,password:"",confirmPassword:""})
+            return
+        }
+        const state = await register(this.state)
+        if(state!=null){
+            this.props.history.push({pathname:'/login',state})
+        }
     }
 
     render() {
@@ -91,9 +98,9 @@ class RegisterFromComponent extends React.Component{
                                         value={this.state.idRol}
                                         onChange={this.handleChange}
                                         aria-label="Default select example">
-                                    <option selected value="">Tipo de usauario</option>
-                                    <option value="1">Cliente</option>
-                                    <option value="2">Paqueteria</option>
+                                    <option defaultValue value="">Tipo de usauario</option>
+                                    <option value="2">Cliente</option>
+                                    <option value="3">Paqueteria</option>
                                 </select>
                             </div>
                             <div className="mb-4">

@@ -71,9 +71,11 @@ export class Client {
                                     msg = params.failureMsg + ". " + msg;
                                 }
                                 Utils.swalError(msg);
+                                Utils.raise(e,"Error en la peticion")
                         }
                     } else if (e.request) {
                         Utils.swalError('Error de servidor por favor comunicarse con el soporte tecnico');
+                        Utils.raise(e,"Error en la comunicacion")
                     }
                     return
                 }
@@ -81,10 +83,13 @@ export class Client {
 
             let res = await axios(requestParamas).catch(requestParamas.catch)
             if (res === undefined) {
-                response=[]
+                response = []
             }else{
                 if(res.data.success){
                     response = res.data.data;
+                    if(response===null){
+                        response = []
+                    }
                     if(!params.muted){
                         Utils.swlToast({
                             icon: 'success',
@@ -116,6 +121,7 @@ export class Client {
                 data:params.data,
                 timeout: params.timeout,
                 auth: params.auth,
+                muted:params.muted||false,
                 catch: function (e) {
                     if (e.response) {
                         let msg = null,
@@ -182,10 +188,12 @@ export class Client {
             }else{
                 if(res.data.success){
                     response = res.data.data;
-                    Utils.swlToast({
-                        icon: 'success',
-                        text: res.data.message
-                    })
+                    if(!params.muted){
+                        Utils.swlToast({
+                            icon: 'success',
+                            text: res.data.message
+                        })
+                    }
                 }else{
                     response = res.data.data;
                 }
