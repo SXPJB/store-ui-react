@@ -1,4 +1,4 @@
-const baseURl = 'http://localhost:8080/';
+const baseURl = 'http://18.116.247.121:8080/';
 //this is a explame data for base url api
 const baseApi = {
     product: baseURl + "tproducts/",
