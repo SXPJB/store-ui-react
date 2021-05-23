@@ -1,6 +1,7 @@
 import React from "react";
 import {deleteProduct, getAllProducts} from "../services/GridService";
 import {withRouter} from "react-router-dom";
+import {Utils} from "../res/Utils";
 
 class AdminPanelComponent extends React.Component{
 
@@ -25,9 +26,23 @@ class AdminPanelComponent extends React.Component{
         this.props.history.push({pathname:'/productPanel/from',state})
     }
     async deleteProduct(id){
-        console.log(id)
-        await deleteProduct(id)
-        window.location.reload(false)
+        Utils.swl({
+            title: '¿Estas seguro de eliminarlo?',
+            text: "!No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, bórralo!',
+            cancelButtonText:"Cancelar",
+            showLoaderOnConfirm: true,
+            preConfirm: async ()=>{
+                await deleteProduct(id)
+                window.location.reload(false)
+            },
+            allowOutsideClick: () => !Utils.swal().isLoading()
+        })
+
     }
     render() {
         return (

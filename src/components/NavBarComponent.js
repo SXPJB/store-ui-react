@@ -43,7 +43,7 @@ function NavBarComponent() {
                                 Utils.getUser() != null ?
                                     <li className="nav-item">
                                         {
-                                            Utils.getUser().idRol.description === "Paqueteria" || Utils.getUser().idRol.description === "Admin"?
+                                            Utils.getUser().idRol.description === "Paqueteria"?
                                                 <Link className="nav-link" to="/tracking">Seguimiento</Link> :
                                                 <Link className="nav-link" to="/myOrders">Mis pedidos</Link>
                                         }

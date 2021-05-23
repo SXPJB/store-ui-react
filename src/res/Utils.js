@@ -107,6 +107,7 @@ export class Utils {
         }else{
             localStorage.removeItem("user")
         }
+        localStorage.removeItem("order")
         window.location.reload(false);
     }
     static goHome(props){

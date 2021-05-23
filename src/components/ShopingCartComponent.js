@@ -43,6 +43,26 @@ class ShopingCartComponent extends React.Component {
             }
         );
     }
+    pay(){
+        if(this.state.destinationDir!==""){
+            Utils.swl({
+                title: '¿Estas seguro?',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '¡Si!',
+                cancelButtonText: "Cancelar",
+                allowOutsideClick:false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.setState({checkout: true})
+                }
+            })
+        }else{
+            Utils.swalError("Ingresa tu direccion de envio para poder continuar")
+        }
+    }
 
     render() {
         return (
@@ -114,7 +134,7 @@ class ShopingCartComponent extends React.Component {
                                 {Utils.getOrder()?<div className="d-grid mb-3">
                                     {this.state.checkout ? <PayPal total={this.state.data.total}/> :
                                         <button className="btn btn-outline-success"
-                                                onClick={() => this.setState({checkout: true})}>Pagar</button>}
+                                                onClick={() =>this.pay()}>Pagar</button>}
                                 </div>:<></>}
                             </div>
                         </div>

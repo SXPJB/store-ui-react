@@ -67,6 +67,7 @@ export const getShoppingCart = async (idOrder, idUser) => {
     }
     return res;
 }
+
 export const updateDirection = async (direction) =>{
    try {
        const idOrder = Utils.getOrder().id
@@ -79,4 +80,14 @@ export const updateDirection = async (direction) =>{
    }catch (e) {
        Utils.raise(e,"Error al actulizar el total")
    }
+}
+
+export const deleteCart = async id =>{
+    try {
+        await Client.GET({
+            url:`${Urls.apiShoppingCart.delete}/${id}`
+        })
+    }catch (e) {
+        Utils.raise(e,"Error al eliminar el producto del carrito")
+    }
 }

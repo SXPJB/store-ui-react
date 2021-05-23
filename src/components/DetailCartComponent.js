@@ -1,6 +1,51 @@
 import React from "react";
+import {addCard, deleteCart} from "../services/ShoppongService";
+import {Utils} from "../res/Utils";
 
 export default class CardDetailCart extends React.Component{
+
+    async deleteProduct(id){
+        Utils.swl({
+            title: '¿Estas seguro de eliminarlo?',
+            text: "!No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, bórralo!',
+            cancelButtonText:"Cancelar",
+            showLoaderOnConfirm: true,
+            preConfirm: async ()=>{
+                await deleteCart(id)
+                window.location.reload(false)
+            },
+            allowOutsideClick: () => !Utils.swal().isLoading()
+        })
+    }
+
+    async addOneProduct(data){
+        Utils.swl({
+            title: 'Ingresa la cantidad de productos',
+            input: 'number',
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'El campo es requerido'
+                }
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Guardar',
+            showLoaderOnConfirm: true,
+            cancelButtonText:"Cancelar",
+            preConfirm: async (amount) => {
+                await addCard({
+                    idProduct:data.idProduct.id,
+                    amount:amount
+                })
+                window.location.reload(false)
+            },
+            allowOutsideClick: () => !Utils.swal().isLoading()
+        })
+    }
 
     render() {
         return(
@@ -20,7 +65,7 @@ export default class CardDetailCart extends React.Component{
                         <hr/>
                         <p>Subtotal: ${new Intl.NumberFormat().format(this.props.data.amount*this.props.data.idProduct.price)}</p>
                         {this.props.buttonsVisible?<>
-                            <button className='btn btn-danger mt-4'>
+                            <button className='btn btn-danger mt-4' onClick={()=>this.deleteProduct(this.props.data.id)}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                      fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
                                     <path
@@ -30,7 +75,7 @@ export default class CardDetailCart extends React.Component{
                                 </svg>
                                 {" "}Eliminar producto
                             </button>
-                            <button className='btn btn-outline-success mt-4 mx-2'>
+                            <button className='btn btn-outline-success mt-4 mx-2' onClick={()=>this.addOneProduct(this.props.data)}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                      fill="currentColor" className="bi bi-plus-lg" viewBox="0 0 16 16">
                                     <path

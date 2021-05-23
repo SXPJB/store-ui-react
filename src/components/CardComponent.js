@@ -27,13 +27,11 @@ class CardComponent extends React.Component{
         if(!Utils.getUser()){
             this.props.history.push('/login')
         }else{
-            if(!Utils.getOrder()){
-                await initialOrder()
-            }
-            if(Utils.getOrder().state!=='C'){
+            if(!Utils.getOrder()||Utils.getOrder().state!=='C'){
                 await initialOrder()
             }
             await addCard(this.state)
+            setTimeout(()=>this.props.history.push('/checkout'),500)
         }
     }
 
@@ -81,10 +79,12 @@ class CardComponent extends React.Component{
                                        onChange={this.handleChange}
                                        max={this.props.data.inventary}
                                        className="form-control"
+                                       disabled={this.props.data.inventary === 0}
                                        name='amount'/>
                             </div>
                             <div className="col-auto">
                                 <button type="submit"
+                                        disabled={this.props.data.inventary === 0}
                                         onClick={this.handleSubmit}
                                         className="btn btn-outline-success">Agregar al carrito</button>
                             </div>

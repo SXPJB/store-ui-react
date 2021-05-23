@@ -20,6 +20,6 @@ export const deleteProduct = async id =>{
             url:`${Urls.apiProducts.delete}/${id}`
         })
     }catch (e) {
-        Utils.raise()
+        Utils.raise(e,"Error al eliminar el producto")
     }
 }

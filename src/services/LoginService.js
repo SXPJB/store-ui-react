@@ -18,6 +18,14 @@ export const login = async (user) => {
     }else{
         sessionStorage.setItem("user",JSON.stringify(usertemp))
     }
+
+    const orderInC = await Client.GET({
+        url:`${Urls.apiOrder.findOrderByUserSateC}/${Utils.getUser().id}`,
+        muted:true
+    })
+    if(orderInC){
+        Utils.setOrder(orderInC);
+    }
 }
 
 export const register = async userInfo =>{

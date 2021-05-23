@@ -19,11 +19,13 @@ export const Urls = {
         insert: baseApi.order + "insert",
         update: baseApi.order + "update",
         findAll: baseApi.order + "findAll",
-        findOrderByUserPage: baseApi.order + "findOrderByUserPage"
+        findOrderByUserPage: baseApi.order + "findOrderByUserPage",
+        findOrderByUserSateC:baseApi.order + "findOrderByUserSateC"
     },
     apiShoppingCart: {
         insert: baseApi.shoppingCart + "insert",
-        findShoppingCartByUserSateC: baseApi.shoppingCart + "findShoppingCartByUserSateC"
+        findShoppingCartByUserSateC: baseApi.shoppingCart + "findShoppingCartByUserSateC",
+        delete: baseApi.shoppingCart + 'delete'
     },
     apiUserControl: {
         login: baseApi.userControl + "login",

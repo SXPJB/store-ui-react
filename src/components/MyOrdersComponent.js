@@ -45,6 +45,7 @@ class MyOrdersComponent extends React.Component {
                             <nav className="navbar navbar-dark bg-dark">
                                 <div className="container-fluid">
                                     <h1 className="navbar-brand">No. {d.id}</h1>
+                                    <h2 className="navbar-brand">Dirección de entrega: {d.destinationDir}</h2>
                                     <div className="d-flex">
                                         <h1 className="navbar-brand">
                                             {!d.delivered ?
