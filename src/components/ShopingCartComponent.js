@@ -28,6 +28,13 @@ class ShopingCartComponent extends React.Component {
         if(Utils.getOrder()){
             const res = await getShoppingCart(Utils.getOrder().id, Utils.getUser().id)
             this.setState({data: res, listProducts: res.shopoingcartList, destinationDir: res.destinationDir})
+        }else{
+            await Utils.swl({
+                icon: 'info',
+                title: 'Oops...',
+                text: 'Auno no tienes nada en el carrito',
+                allowOutsideClick:false
+            })
         }
     }
 

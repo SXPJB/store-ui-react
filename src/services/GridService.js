@@ -7,7 +7,7 @@ export const getAllProducts = async () =>{
         url:Urls.apiProducts.findAll,
         params:{
             page:0,
-            size:8
+            size:100
         },
         muted:true
     })

@@ -3,6 +3,7 @@ import {Link, withRouter} from "react-router-dom";
 import Logo from '../logo.svg'
 import {register} from "../services/LoginService";
 import {Utils} from "../res/Utils";
+import "../App.css"
 
 class RegisterFromComponent extends React.Component{
 
@@ -16,7 +17,7 @@ class RegisterFromComponent extends React.Component{
             email:"",
             password:"",
             confirmPassword:"",
-            idRol:0
+            idRol:2
         }
     }
 
@@ -49,7 +50,7 @@ class RegisterFromComponent extends React.Component{
                     </div>
                     <div className="col p-5 rounded-end">
                         <div className="text-center">
-                            <img src={Logo} className="img-grande" alt="logo react js ecomers"/>
+                            <img src={Logo} className="img-grande App-logo" alt="logo react js ecomers"/>
                         </div>
                         <h2 className="fw-bold text-center py-5">Registro</h2>
                         <form onSubmit={this.handleSubmit}>
@@ -89,19 +90,6 @@ class RegisterFromComponent extends React.Component{
                                        maxLength="13"
                                        required={true}
                                        type="text"/>
-                            </div>
-                            <div className="mb-4">
-                                <label className="form-label">Tipo de usuario</label>
-                                <select className="form-select"
-                                        name="idRol"
-                                        required={true}
-                                        value={this.state.idRol}
-                                        onChange={this.handleChange}
-                                        aria-label="Default select example">
-                                    <option defaultValue value="">Tipo de usauario</option>
-                                    <option value="2">Cliente</option>
-                                    <option value="3">Paqueteria</option>
-                                </select>
                             </div>
                             <div className="mb-4">
                                 <label className="form-label">Correo Electronico</label>

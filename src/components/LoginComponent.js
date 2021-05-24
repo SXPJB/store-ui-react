@@ -4,6 +4,7 @@ import {login} from "../services/LoginService";
 import {Utils} from "../res/Utils";
 import {withRouter} from "react-router-dom";
 import Logo from '../logo.svg'
+import "../App.css"
 
 class Login extends React.Component{
     constructor(props) {
@@ -54,7 +55,7 @@ class Login extends React.Component{
                     </div>
                     <div className="col p-5 rounded-end">
                         <div className="text-center">
-                            <img src={Logo} alt="React"/>
+                            <img className="App-logo" src={Logo} alt="React"/>
                         </div>
                         <h2 className="fw-bold text-center py-5">Bienvenido</h2>
                         <form onSubmit={this.handleSubmit}>

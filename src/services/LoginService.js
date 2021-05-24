@@ -23,7 +23,7 @@ export const login = async (user) => {
         url:`${Urls.apiOrder.findOrderByUserSateC}/${Utils.getUser().id}`,
         muted:true
     })
-    if(orderInC){
+    if(orderInC.length!==0){
         Utils.setOrder(orderInC);
     }
 }
