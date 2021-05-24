@@ -60,7 +60,7 @@ class Login extends React.Component{
                         <h2 className="fw-bold text-center py-5">Bienvenido</h2>
                         <form onSubmit={this.handleSubmit}>
                             <div className="mb-4">
-                                <label className="form-label">Correo electronico</label>
+                                <label className="form-label">Correo electrónico</label>
                                 <input className="form-control"
                                        name="email"
                                        value={this.state.email}
@@ -89,7 +89,7 @@ class Login extends React.Component{
                                 <button className="btn btn-outline-success">Iniciar Sesión</button>
                             </div>
                             <div className="my-3">
-                                <span>No tienes cuenta? <Link to="/register" className="link-info">Registrate</Link></span>
+                                <span>No tienes cuenta? <Link to="/register" className="link-info">Regístrate</Link></span>
                             </div>
                         </form>
                     </div>

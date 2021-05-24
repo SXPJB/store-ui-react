@@ -40,12 +40,13 @@ class MyOrdersComponent extends React.Component {
                     <div className="col-12 bg-dark text-white">
                         <h1>Mis pedidos</h1>
                     </div>
-                    {this.state.data.map(d => (
-                        <div className="col-11 mx-3 my-3 rounded shadow" key={d.id}>
+                    {this.state.data.map((d,i) => (
+                        <div className="col-11 mx-3 my-3 rounded shadow" key={i}>
                             <nav className="navbar navbar-dark bg-dark">
                                 <div className="container-fluid">
-                                    <h1 className="navbar-brand">No. {d.id}</h1>
-                                    <h2 className="navbar-brand">Dirección de entrega: {d.destinationDir}</h2>
+                                    <h1 className="navbar-brand">No. {i+1}</h1>
+                                    <h2 className="text-white fw-bold">Dirección de entrega: {d.destinationDir}</h2>
+                                    <h2 className="text-white fw-bold">Total: ${new Intl.NumberFormat().format(d.total)}</h2>
                                     <div className="d-flex">
                                         <h1 className="navbar-brand">
                                             {!d.delivered ?

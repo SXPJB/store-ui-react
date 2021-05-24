@@ -7,32 +7,32 @@ class FromProductComponent extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state={
-            id:0,
+        this.state = {
+            id: 0,
             title: "",
             description: "",
             price: 0.0,
             inventary: 0,
             image1: "",
-            edit:false,
-            createdBy:Utils.getUser().id
+            edit: false,
+            createdBy: Utils.getUser().id
         }
     }
 
     componentDidMount() {
-        if(this.props.location && this.props.location.state){
+        if (this.props.location && this.props.location.state) {
             this.setState(this.props.location.state)
         }
     }
 
-    resetState(){
-        this.setState( {
+    resetState() {
+        this.setState({
             title: "",
             description: "",
             price: 0.0,
             inventary: 0,
             image1: "",
-            edit:false
+            edit: false
         })
     }
 
@@ -46,27 +46,27 @@ class FromProductComponent extends React.Component {
 
     handleSubmit = async e => {
         e.preventDefault()
-       try {
-           if(this.state.edit){
-               await updateProduct(this.state)
-           }else{
-               await insertProduct(this.state)
-           }
-           this.resetState()
-           this.props.history.push('/productPanel')
-       }catch (e){
+        try {
+            if (this.state.edit) {
+                await updateProduct(this.state)
+            } else {
+                await insertProduct(this.state)
+            }
+            this.resetState()
+            this.props.history.push('/productPanel')
+        } catch (e) {
             Utils.raise(e)
-       }
+        }
     }
 
-    cancelBtn=e=>{
+    cancelBtn = e => {
         e.preventDefault()
         this.resetState()
         this.props.history.push('/productPanel')
     }
-    viewImage = e =>{
+    viewImage = e => {
         e.preventDefault()
-        if(this.state.image1!==""){
+        if (this.state.image1 !== "") {
             window.open(this.state.image1)
         }
     }
@@ -75,31 +75,35 @@ class FromProductComponent extends React.Component {
         return (
             <div className="container-sm">
                 <form onSubmit={this.handleSubmit}>
-                    <label className="form-label">Titulo:</label>
+                    <label className="form-label">Título:</label>
                     <input className="form-control"
                            value={this.state.title}
                            onChange={this.handleChange}
                            type="text"
-                           name="title"/>
-                    <label className="form-label">Descipcion:</label>
+                           name="title"
+                           required={true}/>
+                    <label className="form-label">Descipción:</label>
                     <textarea className="form-control"
                               value={this.state.description}
                               onChange={this.handleChange}
                               name="description"
-                              rows="4"/>
+                              rows="4"
+                              required={true}/>
                     <div className="row mt-3 mb-3">
                         <div className="col-6">
-                            <label className="form-label">Presio:</label>
+                            <label className="form-label">Precio:</label>
                             <input className="form-control"
                                    value={this.state.price}
                                    onChange={this.handleChange}
                                    type="number"
+                                   required={true}
                                    min="0" max="9999999.99" step="0.01"
                                    name="price"/>
                         </div>
                         <div className="col-6">
                             <label className="form-label">Inventario:</label>
                             <input className="form-control"
+                                   required={true}
                                    value={this.state.inventary}
                                    onChange={this.handleChange}
                                    type="number"
@@ -113,6 +117,7 @@ class FromProductComponent extends React.Component {
                     <div className="row mb-3">
                         <div className="col-10">
                             <input className="form-control"
+                                   required={true}
                                    value={this.state.image1}
                                    onChange={this.handleChange}
                                    name="image1"/>

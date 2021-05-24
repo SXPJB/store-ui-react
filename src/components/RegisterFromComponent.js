@@ -92,7 +92,7 @@ class RegisterFromComponent extends React.Component{
                                        type="text"/>
                             </div>
                             <div className="mb-4">
-                                <label className="form-label">Correo Electronico</label>
+                                <label className="form-label">Correo Electrónico</label>
                                 <input className="form-control"
                                        name="email"
                                        required={true}
@@ -119,7 +119,7 @@ class RegisterFromComponent extends React.Component{
                                        type="password"/>
                             </div>
                             <div className="d-grid">
-                                <button className="btn btn-outline-success">Registrase</button>
+                                <button className="btn btn-outline-success">Regístrase</button>
                                 <Link className="link-info mt-4" to="/login">Inicio de Sesión</Link>
                             </div>
                         </form>

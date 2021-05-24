@@ -53,10 +53,10 @@ export default function PayPal(props) {
         Utils.swl({
             position: 'center',
             icon: 'success',
-            title: 'La compra el pedido se a realizado con exito',
-            text:'Revice el esta estatus de su pedido en Mis pedidos',
+            title: 'La compra el pedido se ha realizado con éxito',
+            text:'Revise él este estatus de su pedido en Mis pedidos',
             showConfirmButton: false,
-            timer: 3000
+            timer: 8000
         })
 
         return <Redirect to={"/"}/>
@@ -64,7 +64,7 @@ export default function PayPal(props) {
 
     // If any error occurs
     if (error) {
-        return <div>Error Occurred in processing payment.! Please try again.</div>;
+        return <div>Ocurrió un error al procesar el pago! Inténtalo de nuevo.</div>;
     }
 
     // Default Render

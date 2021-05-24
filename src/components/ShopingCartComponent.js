@@ -67,7 +67,7 @@ class ShopingCartComponent extends React.Component {
                 }
             })
         }else{
-            Utils.swalError("Ingresa tu direccion de envio para poder continuar")
+            Utils.swalError("Ingresa tu dirección de envio para poder continuar")
         }
     }
 
@@ -93,11 +93,11 @@ class ShopingCartComponent extends React.Component {
                             <div className='row'>
                                 <div className='col-12'>
                                     <hr/>
-                                    <h3 className="fw-bold">Envio:</h3>
+                                    <h3 className="fw-bold">Envío:</h3>
                                     <div className='container-fluid p-0'>
                                         <div className='row'>
                                             <div className='col-sm-12 col-md-12 col-lg-8'>
-                                                <h4 className="fw-bold">Direccion:</h4>
+                                                <h4 className="fw-bold">Dirección:</h4>
                                                 <input
                                                     placeholder="Ingresa tu direccion"
                                                     className="form-control"
