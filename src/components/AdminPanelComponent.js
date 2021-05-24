@@ -53,7 +53,7 @@ class AdminPanelComponent extends React.Component{
                         <th>No.</th>
                         <th>Titulo del producto</th>
                         <th>Descipción</th>
-                        <th>Presio</th>
+                        <th>Precio</th>
                         <th>Inventario</th>
                         <th>Acciones</th>
                     </tr>

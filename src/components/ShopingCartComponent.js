@@ -32,7 +32,7 @@ class ShopingCartComponent extends React.Component {
             await Utils.swl({
                 icon: 'info',
                 title: 'Oops...',
-                text: 'Auno no tienes nada en el carrito',
+                text: 'Aun no tienes nada en el carrito',
                 allowOutsideClick:false
             })
         }
@@ -99,7 +99,7 @@ class ShopingCartComponent extends React.Component {
                                             <div className='col-sm-12 col-md-12 col-lg-8'>
                                                 <h4 className="fw-bold">Dirección:</h4>
                                                 <input
-                                                    placeholder="Ingresa tu direccion"
+                                                    placeholder="Ingresa tu dirección"
                                                     className="form-control"
                                                     name="destinationDir"
                                                     value={this.state.destinationDir}

@@ -35,7 +35,7 @@ function NavBarComponent() {
                                     <li className="nav-item">
                                         <Link to="/productPanel" className="nav-link active" aria-current="page"
                                               href="#">
-                                            Administracion de productos
+                                            Administración de productos
                                         </Link>
                                     </li> : <></>
                             }

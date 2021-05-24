@@ -50,14 +50,14 @@ export default function PayPal(props) {
 
     // If the payment has been made
     if (paid) {
-        Utils.swl({
+        setTimeout(()=>Utils.swl({
             position: 'center',
             icon: 'success',
             title: 'La compra el pedido se ha realizado con éxito',
             text:'Revise él este estatus de su pedido en Mis pedidos',
             showConfirmButton: false,
-            timer: 8000
-        })
+            timer: 3000
+        }),2000)
 
         return <Redirect to={"/"}/>
     }

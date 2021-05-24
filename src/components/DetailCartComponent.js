@@ -3,6 +3,16 @@ import {addCard, deleteCart} from "../services/ShoppongService";
 import {Utils} from "../res/Utils";
 
 export default class CardDetailCart extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state={
+            inventary:0
+        }
+    }
+
+    componentDidMount() {
+        this.setState({inventary:this.props.data.idProduct.inventary})
+    }
 
     async deleteProduct(id){
         Utils.swl({
@@ -27,9 +37,13 @@ export default class CardDetailCart extends React.Component{
         Utils.swl({
             title: 'Ingresa la cantidad de productos',
             input: 'number',
+            max:this.state.inventary,
             inputValidator: (value) => {
                 if (!value) {
                     return 'El campo es requerido'
+                }
+                if(value>this.state.inventary){
+                    return 'La cantidad excede del inventario'
                 }
             },
             showCancelButton: true,

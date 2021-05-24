@@ -52,7 +52,7 @@ class TrackingOrderComponent extends React.Component {
                 <table className="table table-stripe">
                     <thead className="table-dark">
                     <tr>
-                        <th>Direccion</th>
+                        <th>Dirección</th>
                         <th>Fecha y hora</th>
                         {
                             this.state.tracking ? <th>
