@@ -2,12 +2,12 @@ import {Client} from "../res/Client";
 import {Urls} from "../res/Urls";
 import {Utils} from "../res/Utils";
 
-export const getAllProducts = async () =>{
+export const getAllProducts = async (page) =>{
     const res = await Client.GET({
         url:Urls.apiProducts.findAll,
         params:{
-            page:0,
-            size:100
+            page,
+            size:8
         },
         muted:true
     })
